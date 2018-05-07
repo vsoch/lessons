@@ -1,0 +1,31 @@
+---
+permalink: /faq
+faq:
+  - question: What are the Research Computing Lessons?
+    answer: This is a small knowledge base of questions, answers, and associated media to get you up to speed with reproducible practices for research computing.
+  - question: Why were they created?
+    answer: There are a lot of nice interfaces, but scientific programming still lives on a command line. If you are a new graduate student with expertise in a biological domain, it's sometimes expected for you to have expertise in scientific programming. It's not always the case that departments provide this training for you.
+  - question: What can I learn?
+    answer: These lessons are bite sized, meaning that they will typically be short tutorials under a larger topic that shows you how to do one simple thing.
+  - question: What if my question isn't answered?
+    answer: If you want to request a tutorial, a different example, or a person to talk to, please <a href="https://github.com/vsoch/lessons">open an issue</a>.
+  - question: How do I contribute?
+    answer: You can read about the steps in our [contribution](/lessons/contribute/) pages.
+  - question: Who is responsible for this?
+    answer: The lessons are maintained by the Stanford University Research Computer Center.
+---
+
+<h1>FAQ</h1>
+
+<section class="faq">
+	<ul>
+		{% for item in page.faq %}
+			<li><a href="#{{ item.question | slugify }}">{{ item.question }}</a></li>
+		{% endfor %}
+	</ul>
+
+	{% for item in page.faq %}
+		<h2 id="{{ item.question | slugify}}">{{ item.question }}<a class="header-link" href="#{{ item.question | slugify }}">#</a></h2>
+		{{ item.answer | markdownify }}
+	{% endfor %}
+</section>

@@ -13,3 +13,6 @@ For a list of current questions we aim to answer, see the [questions](questions.
 We are putting this together and will have content up shortly! Thank you!
 
  -  *the robots*
+
+## Credits
+ - [CloudCannon](https://github.com/CloudCannon/base-jekyll-template) for the beautiful template to start from!
