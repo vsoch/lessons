@@ -14,21 +14,33 @@ editable: true
 
 		{% if page.type == "Video" %}
 			{% include youtube.html video_id=page.video_id %}
-
-			{% if page.resources %}
-				<div class="resources">
-					<ul>
-						{% for resource in page.resources %}
-							<li><a href="{{ resource.link }}">{{ resource.name }}</a></li>
-						{% endfor %}
-					</ul>
-				</div>
-			{% endif %}
+                        {% if page.resources %}
+                        <div class="resources">
+        		        <ul>
+        			        {% for resource in page.resources %}
+        				        <li><a href="{{ resource.link }}">{{ resource.name }}</a></li>
+        					{% endfor %}
+        				</ul>
+        			</div>
+        		{% endif %}
 		{% endif %}
-		
+
 		<div class="tutorial-main">
 			{{ content }}
 		</div>
+
+                {% if page.type == "Document" %}
+                {% if page.resources %}
+                <div class="resources">
+                        <h3>Resources</h3>
+		        <ul>
+			        {% for resource in page.resources %}
+				        <li><a href="{{ resource.link }}">{{ resource.name }}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+                {% endif %}
 		<div class="tutorial-share">
                         {% if site.newsletter_action %}
 			<a class="modalOpen no-smooth" href="#subscribe">{% include social-icon.html icon="Email" %} Subscribe</a>
