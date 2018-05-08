@@ -299,4 +299,4 @@ The first line has the name of the function, and a brief description of what it 
 There are ample <a href="https://ewencp.org/blog/a-brief-introduction-to-packaging-python/" target="_blank">other great resources</a> about the additional functionality you might want! For example, you might want to have an executable written in another language like C that is compiled on install, or have your module be included with other software.
 
 ## Other questions?
-If you have other questions, or want help for your project, please don't hesitate to <a href="https://researchapps.github.io/pages/support">reach out</a>.
+If you have other questions, or want help for your project, please don't hesitate to <a href="https://vsoch.github.io/lessons/issues">reach out</a>.
