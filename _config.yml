@@ -3,6 +3,7 @@
 
 title: Research Computing Lessons
 url: "https://vsoch.github.io/lessons"
+repo: "https://github.com/vsoch/lessons"
 baseurl:  /lessons
 
 # References to files on Github
@@ -38,8 +39,6 @@ plugins:
   - jekyll-compose
 
 exclude:
-  - Gemfile
-  - Gemfile.lock
   - README.md
   - LICENSE
 
@@ -79,9 +78,6 @@ defaults:
       path: "pages/index.html"
     values:
       body_class: "show_hero_search"
-
-# -----------
-# CloudCannon
 
 social_icons:
   - Twitter

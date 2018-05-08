@@ -1,5 +1,6 @@
 ---
 layout: default
+editable: true
 ---
 
 <section class="tutorial">
@@ -36,6 +37,8 @@ layout: default
 		</div>
 	</section>
 </section>
+
+{% include editable.html %}
 
 {% if page.set %}
 	{% assign set_file_name = "_sets/" | append: page.set | append: ".md" %}
