@@ -4,10 +4,7 @@
 
  1. What does it mean to do reproducible research?
  2. What is version control?
- 3. Introduction to Github
-   a. Repositories
-   b. Pull Requests
-   c  Github Pages
+ 3. Strategies for Storage and Archive
  4. Documentation Best Practices
  5. What is continuous integration?
    a. CircleCI
@@ -15,6 +12,12 @@
  6. What are containers?
    a. Docker Quick Start
    b. Singularity Quick Start
+
+## Verison Control
+ 1. Introduction to Github
+   a. Repositories
+   b. Pull Requests
+   c  Github Pages
 
 
 ## Linux and Unix Command Line

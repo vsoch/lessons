@@ -139,6 +139,10 @@ resources:
 This will render into a nice list to go with the post. In fact, entire pages can
 just be sets of resources for your user! Sometimes this is all that is needed.
 
+You can also link to images directly in the post, using just standard markdown for images, or
+if you need a diagram, try creating an <a href="http://asciiflow.com/" target="_blank">asciiflow</a>
+diagram and embedding it in code blocks.
+
 ### 3. Adding Videos
 You can embed a video directly in the post! Just specify that the type is "Video"
 instead of "Document," and add the YouTube Video ID and the site will do it's magic.
