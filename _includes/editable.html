@@ -35,8 +35,7 @@
 <script>
 $(document).ready(function() {
 
-    var divs = $("h1.tutorial-main,h2.tutorial-main,h3.tutorial-main,h4.tutorial-main"); 
-    $.each(divs, function(i,e){
+    $(".tutorial-main").find("h1,h2,h3,h4").each(function(i,e){
 
         // Edit
         var did = $(e).attr('id');
