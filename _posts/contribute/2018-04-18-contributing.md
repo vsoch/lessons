@@ -44,6 +44,37 @@ ls _posts
     linux/
 ```
 
+The first step you should do, in addition to deciding what folder to use above,
+is to decide if your contribution fits into a set. A set is a grouping of lessons
+that the user will be suggested to read when in context of similar posts. The
+lessons are defined by the markdown files in the `_sets` folder, and you are free to choose
+one of these lessons, or generate a new file there to define a new one. For example,
+here we see sets defined for getting-started and clusters, along with some defaults:
+
+```bash
+$ ls _sets/
+clusters.md  _defaults.md  getting-started.md
+```
+
+Each set is just a name and a description! Take a look:
+
+```bash
+cat _sets/clusters.md
+---
+title: Cluster Computing
+description: This series guides you through getting started with HPC cluster computing.
+---
+```
+
+To add a post to this set, you would simply add some metadata to the post's front 
+matter, like this:
+
+```bash
+set: clusters
+set_order: 1
+
+```
+
 ### 1. Create a New File
 A post is just a markdown file. It has two sections, a header "front matter"
 section, and then the content:
