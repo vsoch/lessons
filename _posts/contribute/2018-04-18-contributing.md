@@ -72,7 +72,6 @@ matter, like this:
 ```bash
 set: clusters
 set_order: 1
-
 ```
 
 ### 1. Create a New File
@@ -110,7 +109,6 @@ tags: [contribute]
 
 Here is the content!
 ```
-
 The "tags" should be one or more tags (single words) that describe what you are writing about. These
 are the groups on the front page, so try to be conservative in choosing a tag, and having preference
 for those that already exist. For example, if I am writing a post about Singularity containers, instead of
@@ -167,16 +165,19 @@ ls _posts
 
 in the template I can generate a path to the file (on Github) with:
 
+{% raw %}
 ```
 {{ site.github_posts }}/linux/examples/find-examples.sh
 ```
+{% endraw %}
 
 If I want the user to be able to download the raw file with something like wget,
 I can do:
 
+{% raw %}
 ```
 wget {{ site.github_posts_raw }}/linux/examples/find-examples.sh
 ```
-
+{% endraw %}
 The organization is up to you! We will have a nice method to render and show
 other kinds of rendered pages (e.g., notebooks) soon.
