@@ -85,6 +85,11 @@ social_icons:
   - Email
   - RSS
 
+# Social networking, etc
+google_analtics: "UA-85750967-1"
+disqus_shortname: "stanfordrc"
+twitter_username: StanfordCompute
+
 types:
   - Document
   - Video
