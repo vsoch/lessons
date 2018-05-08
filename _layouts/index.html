@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/screen.css">
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Merriweather:400italic,400,300italic,300,700,700italic|Open+Sans:400italic,600italic,700italic,700,600,400|Inconsolata:400,700">
+
+                <!-- Font Awesome -->
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+                {% include favicon.html %}
+		{% seo %}
+		{% feed_meta %}
+
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	</head>
+
+	<body class="{{ page.body_class }}">
+		<header>
+			<div class="wrapper" style='margin-left:none;margin:auto'>
+				<section class="top-bar">
+					<div class="logo"><a href="{{ site.baseurl }}/">
+                                                              <img style='margin-top:10px' 
+                                                                   src="{{ site.baseurl }}/assets/img/logo.png"></a></div>
+					{% include navigation.html %}
+				</section>
+				<section class="hero_search">
+					<h1>Research Computing Lessons</h1>
+					<p>Practices for Reproducible Research at Stanford</p>
+					{% include search.html %}
+				</section>
+			</div>
+
+		</header>
+		<section class="content">
+			<div class="wrapper" style='margin-left:none;margin:auto'>
+				{{ content }}
+			</div>
+		</section>
+
+                <footer>
+                        <div class="wrapper" style='margin-left:none;margin:auto'>
+		                <p class="edit-footer"><a class="editor-link btn" href="cloudcannon:collections/_data/footer.yml" class="btn" style="padding: 5px;"><strong>&#9998;</strong> Edit footer</a></p>
+		                <ul class="footer-links">
+			                {% for link in site.data.footer %}
+				                <li><a {% if link.new_window %}target="_blank"{% endif %} href="{% include relative-src.html src=link.link %}" {% if link.social_icon %}class="{{ link.social_icon }}-icon"{% endif %}>
+					                {% if link.social_icon %}
+						                {% include social-icon.html icon=link.social_icon %}
+					                {% endif %}
+					                {{ link.name }}</a></li>
+			                {% endfor %}
+		                </ul>
+		                <p class="copyright">&copy; {{ site.title }} {{ site.time | date: "%Y" }}. All rights reserved.</p>
+	                </div>
+                </footer>
+		<script>
+			$(function() {
+				$('a[href*=\\#]').not(".no-smooth").on('click', function(event){
+					var el = $(this.hash);
+					if (el.length > 0) {
+						// event.preventDefault();
+						$('html,body').animate({scrollTop:$(this.hash).offset().top - 50}, 500);
+					}
+				});
+
+				$('svg').click(function() {
+					$(this).parent('form').submit();
+				});
+			});
+
+			document.getElementById("open-nav").addEventListener("click", function (event) {
+				event.preventDefault();
+				document.body.classList.toggle("nav-open");
+			});
+		</script>
+	</body>
+</html>

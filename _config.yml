@@ -37,6 +37,7 @@ plugins:
   - jekyll-feed
   - jekyll-archives
   - jekyll-compose
+  - jekyll-gist
 
 exclude:
   - README.md
@@ -54,7 +55,7 @@ defaults:
     scope:
       path: ""
     values:
-      layout: "default"
+      layout: "index"
   -
     scope:
       type: "posts"

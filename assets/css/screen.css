@@ -341,7 +341,7 @@ code, pre, tt {
     width: 100%; }
     @media (min-width: 750px) {
       .tutorial .tutorial-content {
-        margin-left: 230px; } }
+        margin-left: 250px; } }
 
 .listing {
   list-style: none;
@@ -500,8 +500,6 @@ code, pre, tt {
 .resources {
   background: #fafafa;
   padding: 15px;
-  border: 1px solid #eee;
-  border-top: 0;
   margin: 0 0 30px 0; }
   .resources h3 {
     margin-top: 0; }
@@ -626,6 +624,7 @@ header {
 .wrapper {
   max-width: 1200px;
   margin: 0 auto;
+  margin-left:50px;
   padding: 0 30px;
   position: relative; }
 
