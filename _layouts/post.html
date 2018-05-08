@@ -32,7 +32,7 @@ editable: true
                 {% if page.type == "Document" %}
                 {% if page.resources %}
                 <div class="resources">
-                        <h3>Resources</h3>
+                        <h3 id="resources">Resources</h3>
 		        <ul>
 			        {% for resource in page.resources %}
 				        <li><a href="{{ resource.link }}">{{ resource.name }}</a></li>
@@ -134,7 +134,10 @@ editable: true
            }
         })
 
-	console.log(headings);
+        {% if page.resources %}
+        $('#sidelinks').append('<li><a href="#resources">Resources</a></li>')
+        {% endif %}
+
 	for (var i = 0; i < headings.length; i++) {
 		var anchorLink = document.createElement("a");
 		anchorLink.innerText = "#";
