@@ -10,24 +10,27 @@ set_order: 1
 tags: [resources]
 ---
 
-**Scenario** 
+In this tutorial we will write a job submission script for SLURM. If you haven't yet,
+you should:
 
-You just finished up a really cool analysis in R, and you need to scale it. An HPC
+ - be comfortable accessing <a href="https://vsoch.github.io/lessons/sherlock/">the Sherlock cluster</a>
+ - understand <a href="https://vsoch.github.io/lessons/slurm/">SLURM job submission</a>
+
+and then move forward with this tutorial!
+
+<hr>
+
+### Scenario
+
+You just finished up a really cool analysis, and you need to scale it. An HPC
 cluster with a job manager such as SLURM is a great way to do this! In this tutorial,
 we will walk through a very simple method to do this. First, let's talk about our
 strategy for today.
 
  1. Write an executable script in R / Python
  2. Organize your inputs, output location, and scripts.
- 3. Loop over some set of input variables and submit a SLURM job to use your executable to process each one.
+ 3. Loop over some set of variables and submit a SLURM job to use your executable to process each one.
 
-We are going to have the following scripts, for each of Python and R (to exemplify both)
-
- 1. `run.py` / `run.R` will be the executable script
- 2. /scratch/users/vsochat/project/LizardLips will be our organized data folder, and we will store scripts in a version controlled $HOME/projects/LizardLips
- 3. submit_jobs.py, submit_jobs.R, and submit_jobs.sh will be example scripts that loop over some set of input variables to submit SLURM jobs. We We show a basic shell
-script to do the submission, because very often you don't need much more than that.
- 
 We will cover each of these steps in detail.
 
 ## Write an Executable Script
@@ -41,15 +44,18 @@ args = commandArgs(TRUE)
 input1 = args[1]
 input2 = args[2]
 input3 = args[3]
+
+# Your code here!
 ```
 
 if I saved this in a script called "run.R" I could then execute:
 
 ```bash
-Rscript run.R tomato potato shiabato
+$ Rscript run.R tomato potato shiabato
 ```
 
-and input1 would be assigned to "tomato," and "potato" and "shiabato" to input2 and input3, respectively. By the way, if you aren't familiar with Rscript, it's the executable that will let you run and R script out of the R statistical environment. We are going to be using Rscript in our work today!
+and `input1` would be assigned to "tomato," and "potato" and "shiabato" to `input2` and `input3`, respectively. By the way, if you aren't familiar with <a href="https://stat.ethz.ch/R-manual/R-devel/library/utils/html/Rscript.html" target="_blank">Rscript</a>, it's literally
+the R script executable. We are going to be using it in our work today!
 
 ### Using Python
 Python is just as easy! Instead of commandArgs, we use the `sys` module. The
@@ -61,45 +67,41 @@ import sys
 input1 = sys.argv[1]
 input2 = sys.argv[2]
 input3 = sys.argv[3]
+
+# Your code here!
 ```
 
 Calling would then look like:
 
 ```bash
-python run.py tomato potato shiabato
+$ python run.py tomato potato shiabato
 ```
 
 `sys.argv` is actually just a list of your calling script and the input arguments
 following it. If you are keen, you'll realize that Python starts indexing at 0, and we are skipping over the value at `sys.argv[0]`. This would actually coincide to 
 the name of your script. If you are interested in advanced input parsing, then you
-should look at <a href="https://docs.python.org/3/library/argparse.html" target="_blank">argparse</a>. You can read about our example using argparse for a module <a href="https://vsoch.github.io/lessons/python-packaging/#setuppy" target="_blank">entrypoint here</a>, go <a href="https://gist.github.com/vsoch/da2362f1c5d2747e34c92b99a3473842#file-scripts-py" target="_blank">directly to the gist</a>, or just download the script directly:
-
-```bash
-wget https://gist.githubusercontent.com/vsoch/da2362f1c5d2747e34c92b99a3473842/raw/1d379e37b33ad2a1c748819b4c6d49f1fea85b30/scripts.py
-```
+should look at <a href="https://docs.python.org/3/library/argparse.html" target="_blank">argparse</a>. You can read about our example using argparse for a module <a href="https://vsoch.github.io/lessons/python-packaging/#setuppy" target="_blank">entrypoint here</a>, or go <a href="https://gist.github.com/vsoch/da2362f1c5d2747e34c92b99a3473842#file-scripts-py" target="_blank">directly to the gist</a>.
 
 ### A Little About Executables
 When you write your executable, it's good practice to **not hard code any variables**
 For example, if my script is going to process an input file, I could take in just
 a subject identifier and then define the full path in the script:
 
-```
+```R
 ## R Example DONT DO THIS
 ...
 subid = args[3]
 input_path = paste('/scratch/users/vsochat/projects/LizardLips/',subid,'/data.csv', sep='')
-```
-```python
+
 ## Python Example DONT DO THIS
 ...
 subid = sys.argv[3]
 input_path = '/scratch/users/vsochat/projects/LizardLips/%s/data.csv' % subid
 ```
 
-But guess what? If you change a location, your script breaks. Instead, assign this path duty to the calling script (we haven't written this yet) that is going to loop over variables and call this script. This means that your executable should instead
-expect a _general_ `input_path`:
+But guess what? If you change a location, your script breaks. Instead, assign this path duty to the calling script (we haven't written this yet). This means that your executable should instead expect a _general_ `input_path`:
 
-```
+```R
 ## R Example DO THIS
 ...
 input_path = args[3]
@@ -108,8 +110,7 @@ input_path = args[3]
    cat('Cannot find', input_path, 'exiting!\n')
    stop()
 }
-```
-```python
+
 ## Python Example DO THIS
 input_path = sys.argv[3]
 if not os.path.exists(input_path)
@@ -127,15 +128,13 @@ You will hugely benefit
  if you keep your scripts and inputs / outputs organized. This generally means the following:
 
 ### Scripts go in $HOME
-your `$HOME` folder is backed up. This also means you have a stricter quota, and should use it for scripts and valuables (and not data). Under `$HOME`, it's recommended to adopt a structure based on version controlled code. For example, I might have a folder `$HOME/projects` and inside that folder I would clone Github repositories that are relevant to my work. **Everything** would be commit, and if you are a pro, you would have testing. Generally,
+your $HOME folder is backed up. This also means you have a stricter quota, and should use it for scripts and valuables (and not data). Under $HOME, it's recommended to adopt a structure based on version controlled code. For example, I might have a folder $HOME/projects and inside that folder I would clone Github repositories that are relevant to my work. **Everything** would be commit, and if you are a pro, you would have testing. Generally,
 
-> You should be able to completely rm -rf your entire `$HOME` directory and be able 
-to easily reproduce it because your code is version controlled.
+> You should be able to completely lose your entire $HOME and be OK because the code is under version control.
 
 ### Data goes in $SCRATCH
-`$SCRATCH` is a good place for temporary data outputs, and `$SCRATCH_LOCAL` for even
-more temporary (files that are only needed at runtime). If you have a more long term data storage resource (e.g., `$OAK` at Stanford) then you might store data here too). This means that you might have an equivalent folder setup on `$SCRATCH` for projects,
-`$SCRATCH/projects` and subfolders of projects under that. If it's a shared project between your group, you should put it in `$PI_SCRATCH` or `$OAK`. For example, for my project "LizardLips" with subject folders "LizardA" and "LizardB" I might decide on this output
+$SCRATCH is a good place for temporary data outputs. If you have a more long term data storage resource (e.g., $OAK at Stanford) then you might store data here too). This means that you might have an equivalent folder setup here for project data,
+$SCRATCH/projects and subfolders of projects under that. If it's a shared project between your group, you could put it in $PI_SCRATCH. For example, for my project "LizardLips" with subject folders "LizardA" and "LizardB" I might decide on this output
 structure:
 
 ```bash
@@ -146,8 +145,8 @@ structure:
                               LizardB
 ```
 
-### Inputs go in $SCRATCH
-Now, arguably if you have a small input file (e.g., a csv) it would be OK to store it in your `$HOME`. But with all this big data I'm betting that your input data is large too. The trick here is that you want to create an organizational setup where you can
+#### Inputs
+Now, arguably if you have a small input file (e.g., a csv) it would be OK to store it in your $HOME. But with all this big data I'm betting that your input data is large too. The trick here is that you want to create an organizational setup where you can
 always link an input object (subject, sample, timepoint, etc.) to its output based on a unique identifier. In the data organization above, we see that our data is organized based on subjects (LizardA and LizardB) and you can imagine now having a programmatically defined input and output location for each:
 
 ```bash
@@ -160,14 +159,14 @@ LizardLips/
         result/
 ```
 
-of course you can call it whatever you like, or is appropriate for your domain or work.
+With the above structure, I can have confidence that my inputs for `LizardA`, if they exist, are in `/scratch/users/vsochat/LizardLips/LizardA/inputs`. What do you name these folders? It's largely up to you, and you should choose names appropriate for your data.
 There are many known data organization standards (e.g., <a href="http://bids.neuroimaging.io/" target='_blank'>BIDS</a> for neuroimaging) and you should have
 a discussion with your lab mates, and (highly recommended) reach out to <a href="https://www.twitter.com/StanfordCompute">research computing</a> to have a meeting
 to discuss a data storage strategy.
 
-## loop submission using your executable
-You then want to loop over some set of input variables (for example, csv files with data.) You can imagine doing this on your computer - each of the inputs would be processed in serial. Your time to completion, where T is the time for one script to run, is N (number of inputs) * T. That can take many hours if you have a few hundred
-inputs that each take 10 minutes, and it's totally unfeasible if you have thousands of simulations, each of which might need 30 minutes to an hour.
+## Loop submission using your executable
+You then want to loop over some set of input variables (for example, csv files with data.) You can imagine doing this on your computer - each of the inputs would be processed in serial. Your time to completion, where T is the time for one script to run, and N is the number of inputs, is N * T. That can take many hours if you have a few hundred
+inputs each taking 10 minutes, and it's totally unfeasible if you have thousands of simulations, each of which might need 30 minutes to an hour.
 
 ### Strategy 1: Submit a Job File
 As a graduate student I liked having a record of what I had run, and an easy way to
@@ -210,7 +209,9 @@ would submit it like this to slurm:
 sbatch LizardA.job
 ```
 
-If it falls within the node limits and accounting, you will see that the job is submit.
+If it falls within the node limits and accounting, you will see that the job is submit. If you need a helper tool to generate
+just one template, check out the <a href="https://researchapps.github.io/job-maker/" target="_blank">Job maker</a> that I put together
+a few years ago.
 
 ### Strategy 1: Submit Directly to sbatch
 What if you had the script RScript, and you didn't want to create a job file? You can do the exact same submission using sbatch directly:
@@ -228,13 +229,14 @@ sbatch --job-name=LizardA.job \
 and then of course you would need to reproduce that command to run it again. This is why my preference is for writing a job file. But then it follows that if we have hundreds of jobs to submit, we need hundreds of files. How do we do that?
 
 ### Write a Loop Submission Script
-Here I will show you very basic example in each of R, Python, and shell to loop
+Here I will show you very basic example in each of R, Python, and bash to loop
 through a set up input variables (the subject identifier to derive an input path)
 to generate job files, and then submit them. We can assume the following:
 
  - **the number of jobs to submit is within our accounting limits**, so we will submit them all at once (meaning they get added to the queue).
- - **at the start of the script, you check for existence of directories.** Usually you will need to create a top level or subject level directory somewhere in the loop, given that it doesn't exist. Don't forget to do this.
- - **you have permission to write to where you need to write.** This not only means that you have write permission, but if you are writing to a shared space, you make sure that others will too. If you are running analyses with containers, you must be certain that you are not attempting to write anything inside the container (they are read only!) but rather in a writable directory mounted to it.
+ - **at the start of the script, you check for existence of directories.** Usually you will need to create a top level or subject level directory somewhere in the loop, given that it doesn't exist.
+ - **you have permission to write to where you need to write.** This not only means that you have write permission, but if you are writing to a shared space, you make sure that others will too.
+
 
 #### Bash Submission
 Bash scripting is the most general solution, and we will start with it. Here is a basic
@@ -269,7 +271,7 @@ done
 
 ```
 Notice that we are echoing the job into the `$job_file`. We are also launching the
-newly created job with the last line.
+newly created job with the last line `sbatch $job_file`.
 
 #### Python Submission
 
@@ -291,6 +293,7 @@ job_directory = "%s/.job" %os.getcwd()
 scratch = os.environ['SCRATCH']
 data_dir = os.path.join(scratch, '/project/LizardLips')
 
+# Make top level directories
 mkdir_p(job_directory)
 mkdir_p(data_dir)
 
@@ -319,17 +322,17 @@ for lizard in lizards:
     os.system("sbatch %s" %job_file)
 ```
 
+The last line submits a job by sending the command to the console. Note that if you
+want to do this function in actual software, you would want to use <a href="https://docs.python.org/3/library/subprocess.html" target="_blank">subprocess</a>.
+
 #### R Submission
 This example shows using a relative path to the job file, along
-with referencing `$SCRATCH` as a variable. Careful doing this!
+with printing $SCRATCH as a variable in the file instead of the actual path.
 
 For the below, we are going to use "sink", which is just a lazy man's way to write to file, and then the output of cat goes into the file. You can also use cat and specify the file="" argument.
 
 ```R
 !#/usr/bin/env Rscript
-
-scratch = os.environ['SCRATCH']
-data_dir = os.path.join(scratch, '/project/LizardLips')
 
 lizards=c("LizardA","LizardB")
 
@@ -342,7 +345,7 @@ for (lizard in lizards) {
 
     # the basic job submission script is a bash script
     cat("#!/bin/bash\n")
-    cat("#SBATCH --job-name=",lizard",".job\n", sep="")
+    cat("#SBATCH --job-name=",lizard,".job\n", sep="")
     cat("#SBATCH --output=.out/",lizard,".out\n", sep="")
     cat("#SBATCH --error=.out/",lizard,".err\n", sep="")
     cat("#SBATCH --time=2-00:00\n")
@@ -360,12 +363,15 @@ for (lizard in lizards) {
 
 }
 ```
-Again,I recommend NOT doing this programatically first when testing, but to do `sbatch LizardA.job` from the console 
+Again,I recommend NOT doing this programatically first when testing, but to do manual runs first.
 
-#### Final Notes
+## Good Practices
+
 Finally, here are a few good job submission practices.
 
  - **Always use full paths**. For the scripts, it might be reasonable to use relative paths, and this is because they are run in context of their own location. However, in the case of data and other files, you should always use full paths.
+ - **Don't run large computation on the login nodes!** It negatively impacts all cluster users. Grab a development node with `sdev`.
+ - **Think about how much memory you actually need**. You want to set a bit of an upper bound so a spike doesn't kill the job, but you also don't want to waste resources when you (or someone else) could be running more jobs.
  - **You should generally not run anything en-masse before it is tested.** This means that after you write your loop script, you might step through it manually (don't be ashamed to open up an interactive R or Python console and copy paste away!), submit the job, ensure that it runs successfully, and inspect the output. I can almost guarantee you will have a bug or find a detail that you want to change. It's much easier to do this a few times until you are satisfied and then launch en-masse over launching en-masse and realizing they are all going to error.
 
 And as a reminder, here are some useful SLURM commands for checking your job.
@@ -444,3 +450,5 @@ lfs quota -g <pi_sunetid> -h /scratch/
 # Counting Files
 find . -type f | wc -l
 ```
+
+Do you have questions or want to see another tutorial? Please <a href="https://www.github.com/vsoch/lessons/issues">reach out</a>!
