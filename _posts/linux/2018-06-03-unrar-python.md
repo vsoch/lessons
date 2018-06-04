@@ -227,8 +227,11 @@ If you are extracting on a shared resource, make sure to export your `SINGULARIT
 pulling to `$HOME` can fill up the quota almost immediately `#fatcontainers`.
 
 ```bash
- export SINGULARITY_CACHEDIR=$SCRATCH/.singularity
+
+export SINGULARITY_CACHEDIR=$SCRATCH/.singularity
+mkdir -p ${SINGULARITY_CACHEDIR}
 $ singularity pull --name rar.simg shub://singularityhub/rar
+
 ```
 
 You can always ask the container for help before blindly running it.
