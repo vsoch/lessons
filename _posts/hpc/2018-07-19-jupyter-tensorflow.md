@@ -238,7 +238,7 @@ physical_device_desc: "device: 0, name: Tesla K80, pci bus id: 0000:09:00.0, com
 ]
 ```
 
-![/lessons/assets/img/tutorials/sherlock-tensorflow.png](/lessons/assets/img/tutorials/sherlock-tensorflow.png)
+![/lessons/assets/img/tutorials/tensorflow-sherlock.png](/lessons/assets/img/tutorials/tensorflow-sherlock.png)
 
 
 ## Debugging
