@@ -29,7 +29,7 @@ If you find a command hanging or failing, you might need to re-authenticate the 
 password, or you might be entering the wrong password.
 
 
-### Step 1: Download the Repository
+## Step 1: Download the Repository
 First, clone the repository, and remember the location. You will generate a parameters flie
 `params.sh` that you can go back to and use again.
 
@@ -50,7 +50,7 @@ As a reminder from the previous post, here are the files that we have to work wi
 └── start.sh  (-- how you start a connection
 ```
 
-### Step 2: Generate your Parameters
+## Step 2: Generate your Parameters
 
 You will need to generate a file of parameters to source before using the tool. Importantly, if you
 want to use tensorflow with a gpu, you should select the partition to be "gpu" when it asks you.
@@ -90,7 +90,7 @@ MEM="20G"
 TIME="8:00:00"
 ```
 
-### Step 3: SSH Credentials
+## Step 3: SSH Credentials
 
 Follow the <a href="https://www.sherlock.stanford.edu/docs/getting-started/connecting/" target="_blank">instructions here</a> to set up your Sherlock credentials. You
 can see what you have by looking at your `~/.ssh/config`:
@@ -129,7 +129,7 @@ or just do the entire thing programatically:
 bash hosts/sherlock_ssh.sh >> ~/.ssh/config
 ```
 
-### Step 4. On Sherlock
+## Step 4. On Sherlock
 
 <br>
 
@@ -155,7 +155,7 @@ $ pip install protobuf --user
 $ pip3 install protobuf --user
 ```
 
-### Step 5. Usage
+## Step 5. Usage
 
 We have just set up a password on Sherlock, and are now back on our _local machine_. Here are the general commands to start and stop sessions. In the tutorial below, we will walk through using Jupyter notebook.
 
@@ -207,7 +207,7 @@ bash resume.sh py2-tensorflow`
 bash end.sh py2-tensorflow`
 ```
 
-### Step 6. Notebook
+## Step 6. Notebook
 
 Once you have jupyter running, you want to **make sure you select the python kernel corresponding to
 the one for your job!** For our tutorial, we loaded python 2, so we would want to create a Python 2 notebook.
@@ -290,7 +290,7 @@ to see rules for usage, and your options.
 
 Well what are you waiting for? Ask for help by <a href="https://github.com/drorlab/forward" target="_blank">opening an issue</a>! or submitting a pull request.
 
-## Why not Containers
+## Wait, Why not Containers?
 
 It occurs to me, it's pretty annoying to need to load modules, and still have broken dependencies.
 Would you be interested in a function like this to start an interactive container? And then allow it to
