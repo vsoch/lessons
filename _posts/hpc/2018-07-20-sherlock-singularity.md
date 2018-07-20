@@ -212,7 +212,9 @@ provided as `singularity.sbatch` in the forward repository to get started. The b
  2. Optionally add jupyter notebooks
  3. Push the image to Docker Hub
 
-And then either pull it to Sherlock with Singularity, or provide the docker uri to the container (and it will be pulled on the fly). The first is generallly recommended. If you need help, please reach out to [@vsoch](https://www.twitter.com/vsoch).
+And then either pull it to Sherlock with Singularity, or provide the docker uri to the container (and it will be pulled on the fly). The first is generallly recommended. If you need help, or hey, if you
+have a request for a container, please reach out to [@vsoch](https://www.twitter.com/vsoch). I will
+be happy to build and provide a container for you from my shared folder!
 
 
 ## Debugging
