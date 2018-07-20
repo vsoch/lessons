@@ -165,14 +165,9 @@ $ bash start.sh singularity-jupyter /scratch/users/<username>
 ```
 
 The above command will submit the job, forward the port, and show you the log that has your
-token password to enter into the url.
-
-```bash
-$ bash start.sh singularity-jupyter
-```
-
-The terminal will show you the password to enter when you open your browser, it's a token generated
-on the fly. If it doesn't, you can find it in the error or output files:
+token password to enter into the url. It's a token generated
+on the fly. If it doesn't, you can find it (or some other bug that was not revealed!) 
+in the error or output files:
 
 ```bash
 SHERLOCK_HOME=/home/users/vsochat
