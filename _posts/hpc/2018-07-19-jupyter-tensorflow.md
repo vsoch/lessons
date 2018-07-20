@@ -1,7 +1,7 @@
 ---
 date: 2018-07-9
 title: "Jupyter with Tensorflow (GPU) on Sherlock"
-description: Use Jupyter Notebooks (optionally with GPU) on Sherlock with Port Forwarding
+description: Use Jupyter Notebooks (optionally with GPU and Singularity containers) on Sherlock with Port Forwarding
 categories:
   - tutorial
 type: Tutorial
@@ -12,8 +12,10 @@ tags: [resources]
 
 This is a followup to our [original post](https://vsoch.github.io/lessons/sherlock-jupyter/) 
 that described how to get access to a jupyter notebook on Sherlock with port forwarding!
-Today we will extend the example to a new [sbatch script]() that will start up a jupyter
-notebook with tensorflow. Want a GPU? We can do that too. Let's get started!
+Today we will extend the example to a new set of 
+[sbatch scripts](https://github.com/drorlab/forward/tree/master/sbatches) 
+that will start up a jupyter notebook with tensorflow. Want a GPU? We can do that too. Want to make it easier
+and use a Singularity container? Yeah that works! Let's get started!
 
 ## What are we doing today?
 
@@ -131,9 +133,13 @@ bash hosts/sherlock_ssh.sh >> ~/.ssh/config
 
 ## Step 4. On Sherlock
 
+This step is only necessary if you are using the jupyter sbatch script (e.g., py2-jupyter-*.sbatch)
+and will be using the local jupyter module. If you use a jupyter container through Singularity, you
+can skip this step!
+
 <br>
 
-Set up your jupyter notebook password, for either version for Python 2 and/or 3. 
+For local jupyter usage, set up your jupyter notebook password, for either version for Python 2 and/or 3. 
 I wound up loading both modules and setting the same password, because I knew I'd forget.
 
 ```bash
@@ -160,7 +166,7 @@ $ pip3 install google --user
 
 ## Step 5. Usage
 
-We have just set up a password on Sherlock, and are now back on our _local machine_. Here are the general commands to start and stop sessions. In the tutorial below, we will walk through using Jupyter notebook.
+Now we are back on our _local machine_. Here are the general commands to start and stop sessions. In the tutorial below, we will walk through using Jupyter notebook.
 
 We've already reviewed how to start a session in the previous post, now we will just go over how to start
 the tensorflow jupyter notebook, using the password from above. If you want more verbosity, see the previous post. The general command for start.sh looks like this:
@@ -169,7 +175,15 @@ the tensorflow jupyter notebook, using the password from above. If you want more
 bash start.sh <software> <path>
 ```
 
-so the command to run jupyter notebook with tensorflow looks like this:
+so the command to run jupyter notebook with tensorflow (via Singularity) looks like this:
+
+```bash
+$ bash start.sh singularity-tensorflow /path/to/dir
+```
+
+The above command will submit the job, forward the port, and show you the log that has your
+token password to enter into the url. The command to run jupyter notebook with tensorflow 
+(using the modules provided on Sherlock) looks like this:
 
 ```bash
 $ bash start.sh py2-tensorflow /path/to/dir
@@ -204,9 +218,11 @@ back later:
 
 ```bash
 # Resume a session
+bash resume.sh <name>
 bash resume.sh py2-tensorflow`
 
 # End a session
+bash end.sh <name>
 bash end.sh py2-tensorflow`
 ```
 
@@ -245,6 +261,7 @@ physical_device_desc: "device: 0, name: Tesla K80, pci bus id: 0000:09:00.0, com
 
 
 ## Debugging
+
 Tensorflow is really buggy, and this solution is a bit hacky, but when you get it up and running,
 it really is a great workflow! That said, I want to help you to resolve issues that you might run into,
 so I've written up some common pitfalls that I hit during development. If you still need help, please 
@@ -303,6 +320,40 @@ from sherlock, using `ssh sherlock` to send the command. If it's the case that y
 session has expired (or you got the wrong password), then you might have a password 
 prompt (that you can't see) that looks like the terminal is hanging. If this seems to be
 the case, try opening a new terminal window, and authenticating with sherlock again (`ssh sherlock pwd` should trigger the login authentication flow.)
+
+**Failed to setup local forwarding**
+
+If you have a hanging process (if you killed a session and now can't recreate it) you might get an error
+message about not being able to set up the port forwarding! What you want to do is use `ps` to list
+processes with ssh, find the process id, and kill it. Here is an example.
+
+```bash
+# Here I'm searching for processes with ssh
+$ ps aux | grep ssh
+vanessa    749  0.0  0.0  44792  5216 pts/18   S    02:02   0:00 ssh -L 56143:localhost:56143 sherlock ssh -L 56143:localhost:56143 -N sh-113-14
+vanessa    909  0.0  0.0  14228   984 pts/18   S+   02:04   0:00 grep --color=auto ssh
+vanessa  19987  0.0  0.0  49056  6608 pts/19   S+   Jul19   0:07 ssh -XY vsochat@login.sherlock.stanford.edu
+vanessa  32442  0.0  0.0  44792  5260 pts/18   S    01:48   0:00 ssh -L 56143:localhost:56143 sherlock ssh -L 56143:localhost:56143 -N sh-ln01
+```
+
+See the last one, with pid `32442`? That's the one I want to kill:
+
+```bash
+$ kill 32442
+
+# Is it gone?
+$ ps aux| grep ssh
+vanessa    749  0.0  0.0  44792  5216 pts/18   S    02:02   0:00 ssh -L 56143:localhost:56143 sherlock ssh -L 56143:localhost:56143 -N sh-113-14
+vanessa    922  0.0  0.0  14228   988 pts/18   R+   02:04   0:00 grep --color=auto ssh
+vanessa  19987  0.0  0.0  49056  6608 pts/19   S+   Jul19   0:07 ssh -XY vsochat@login.sherlock.stanford.edu
+[1]+  Exit 255                ssh -L 56143:localhost:56143 sherlock ssh -L 56143:localhost:56143 -N sh-ln01
+```
+
+It just exited! At this point, it's easiest to run end.sh and then start.sh again. 
+
+```bash
+bash end.sh singularity-jupyter
+```
 
 **My notebook doesn't have GPU**
 
