@@ -13,7 +13,7 @@ tags: [resources]
 This is a followup to our original posts:
 
  - [sherlock jupyter](https://vsoch.github.io/lessons/sherlock-jupyter/) 
- - [sherlock tensorflow](https://vsoch.github.io/lessons/sherlock-tensorflow/)
+ - [sherlock tensorflow](https://vsoch.github.io/lessons/jupyter-tensorflow/)
  
 that described how to get access to a jupyter notebook on Sherlock, with or without
 GPU and tensorflow, with port forwarding!
