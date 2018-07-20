@@ -1,7 +1,7 @@
 ---
 date: 2018-07-9
 title: "Jupyter with Tensorflow (GPU) on Sherlock"
-description: Use Jupyter Notebooks (optionally with GPU and Singularity containers) on Sherlock with Port Forwarding
+description: Use Jupyter Notebooks (optionally with GPU) on Sherlock with Port Forwarding
 categories:
   - tutorial
 type: Tutorial
@@ -14,8 +14,9 @@ This is a followup to our [original post](https://vsoch.github.io/lessons/sherlo
 that described how to get access to a jupyter notebook on Sherlock with port forwarding!
 Today we will extend the example to a new set of 
 [sbatch scripts](https://github.com/drorlab/forward/tree/master/sbatches) 
-that will start up a jupyter notebook with tensorflow. Want a GPU? We can do that too. Want to make it easier
-and use a Singularity container? Yeah that works! Let's get started!
+that will start up a jupyter notebook with tensorflow. Want a GPU? We can do that too. 
+If you want to container-based verison of this tutorial (yes, you can deploy jupyter 
+from a container too!) then see [this post](https://vsoch.github.io/lessons/sherlock-singularity). Let's get started!
 
 ## What are we doing today?
 
@@ -133,10 +134,6 @@ bash hosts/sherlock_ssh.sh >> ~/.ssh/config
 
 ## Step 4. On Sherlock
 
-This step is only necessary if you are using the jupyter sbatch script (e.g., py2-jupyter-*.sbatch)
-and will be using the local jupyter module. If you use a jupyter container through Singularity, you
-can skip this step!
-
 <br>
 
 For local jupyter usage, set up your jupyter notebook password, for either version for Python 2 and/or 3. 
@@ -168,17 +165,13 @@ $ pip3 install google --user
 
 Now we are back on our _local machine_. Here are the general commands to start and stop sessions. In the tutorial below, we will walk through using Jupyter notebook.
 
+ bash start.sh singularity-jupyte
+
 We've already reviewed how to start a session in the previous post, now we will just go over how to start
 the tensorflow jupyter notebook, using the password from above. If you want more verbosity, see the previous post. The general command for start.sh looks like this:
 
 ```bash
 bash start.sh <software> <path>
-```
-
-so the command to run jupyter notebook with tensorflow (via Singularity) looks like this:
-
-```bash
-$ bash start.sh singularity-tensorflow /path/to/dir
 ```
 
 The above command will submit the job, forward the port, and show you the log that has your
