@@ -147,12 +147,15 @@ $ which jupyter
 jupyter notebook password
 ```
 
-Also make sure you have protobuf installed. I didn't (although I had expected it would have
-come with the tensorflow module... open a ticket if you agree!)
+Also make sure you have google and protobuf installed. The Python2 scripts loads
+protobuf as a module, but I did this anyway just in case.
 
 ```bash
 $ pip install protobuf --user
 $ pip3 install protobuf --user
+
+$ pip install google --user
+$ pip3 install google --user
 ```
 
 ## Step 5. Usage
@@ -260,6 +263,29 @@ os.system("pip install --user protobuf")
 
 And then restart the kernal from the interface to have changes take effect (you will
 get some glorious error messages if you don't).
+
+**I get error code 256 when I try to install a module**
+
+This usually means you are trying to uninstall or install to somewhere on the system where you don't
+have permission. The best thing to do to get around this is to, in an interactive shell outside
+of the notebook, unset your python path, and use a version of pip that is under your control (and
+after added to your PYTHONPATH) to install the needed module. E.g.:
+
+```bash
+unset PYTHONPATH
+wget https://bootstrap.pypa.io/get-pip.py
+$HOME/anaconda3/bin/python get-pip.py
+$HOME/anaconda3/bin/python -m pip install google
+```
+
+and then in your `.bashrc` make sure this path is hit first (note you may need to adjust the location
+and version of python, this was for Anaconda3 installed in the default location)!
+
+```bash
+# in .bashrc
+export PYTHONPATH=$HOME/anaconda3/lib/python3.6/site-packages:$PYTHONPATH
+export PATH=$HOME/anaconda3/bin:$PATH
+```
 
 **My password doesn't work!**
 
