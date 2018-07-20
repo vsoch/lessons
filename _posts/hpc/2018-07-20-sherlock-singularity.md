@@ -190,6 +190,19 @@ bash end.sh singularity-jupyter
 If you want custom software in your container, give [repo2docker](https://repo2docker.readthedocs.io)
 a try! For this tutorial, we used the [continuous builder](https://github.com/binder-examples/continuous-build/) template to have the image deployed automatically to Docker Hub.
 
+## Step 6: Notebook
+What highly important python modules did I provide for you in this example? Open up
+a Python 3 new Notebook, and try this out:
+
+```python
+from pokemon.skills import get_avatar
+
+avatar = get_avatar('vanessa')
+```
+![/lessons/assets/img/tutorials/jupyter-pokemon.png](/lessons/assets/img/tutorials/jupyter-pokemon.png)
+
+Check out the [pokemon module](https://www.github.com/vsoch/pokemon-ascii) for other fun things you can do :)
+
 ## I want to run my own container!
 
 This is really easy for you to do! You can use the general Singularity container script,
