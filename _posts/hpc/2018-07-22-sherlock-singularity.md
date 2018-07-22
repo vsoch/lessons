@@ -1,5 +1,5 @@
 ---
-date: 2018-07-17
+date: 2018-07-22
 title: "Jupyter with Singularity on Sherlock"
 description: Use Jupyter Notebooks via Singularity Containers on Sherlock with Port Forwarding
 categories:
@@ -29,7 +29,7 @@ to create your own custom container notebooks to share with others. Let's get st
 
 Today we are going to do the following:
 
- - configure the [forward](https://github.com/drorlab/forward) tool
+ - configure the [forward](https://github.com/vsoch/forward) tool
  - run a password protected jupyter notebook via a Singularity container on a cluster node
  - access the notebook in a browsr on your local machine
 
@@ -40,7 +40,7 @@ First, clone the repository, and remember the location. You will generate a para
 `params.sh` that you can go back to and use again.
 
 ```bash
-git clone https://github.com/drorlab/forward
+git clone https://github.com/vsoch/forward
 cd forward
 ```
 
@@ -267,6 +267,6 @@ bash end.sh singularity-jupyter
 
 **There is some other problem, arggg!**
 
-Well what are you waiting for? Ask for help by <a href="https://github.com/drorlab/forward" target="_blank">opening an issue</a>! or submitting a pull request.
+Well what are you waiting for? Ask for help by <a href="https://github.com/vsoch/forward" target="_blank">opening an issue</a>! or submitting a pull request.
 
 Do you have questions or want to see another tutorial? Please <a href="https://www.github.com/vsoch/lessons/issues">reach out</a>!
