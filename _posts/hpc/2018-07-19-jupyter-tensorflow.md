@@ -13,7 +13,7 @@ tags: [resources]
 This is a followup to our [original post](https://vsoch.github.io/lessons/sherlock-jupyter/) 
 that described how to get access to a jupyter notebook on Sherlock with port forwarding!
 Today we will extend the example to a new set of 
-[sbatch scripts](https://github.com/drorlab/forward/tree/master/sbatches) 
+[sbatch scripts](https://github.com/vsoch/forward/tree/master/sbatches) 
 that will start up a jupyter notebook with tensorflow. Want a GPU? We can do that too. 
 If you want to container-based verison of this tutorial (yes, you can deploy jupyter 
 from a container too!) then see [this post](https://vsoch.github.io/lessons/sherlock-singularity). Let's get started!
@@ -22,7 +22,7 @@ from a container too!) then see [this post](https://vsoch.github.io/lessons/sher
 
 Today we are going to do the following:
 
- - configure the [forward](https://github.com/drorlab/forward) tool to use the GPU partition
+ - configure the [forward](https://github.com/vsoch/forward) tool to use the GPU partition
  - run a password protected jupyter notebook with tensorflow on a cluster node
  - access the notebook in a browsr on your local machine
 
@@ -37,7 +37,7 @@ First, clone the repository, and remember the location. You will generate a para
 `params.sh` that you can go back to and use again.
 
 ```bash
-git clone https://github.com/drorlab/forward
+git clone https://github.com/vsoch/forward
 cd forward
 ```
 
@@ -358,7 +358,7 @@ to see rules for usage, and your options.
 
 **There is some other problem, arggg!**
 
-Well what are you waiting for? Ask for help by <a href="https://github.com/drorlab/forward" target="_blank">opening an issue</a>! or submitting a pull request.
+Well what are you waiting for? Ask for help by <a href="https://github.com/vsoch/forward" target="_blank">opening an issue</a>! or submitting a pull request.
 
 ## Wait, Why not Containers?
 
