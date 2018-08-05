@@ -1,0 +1,8 @@
+---
+permalink: /tutorial
+---
+{% assign tutorials = site.posts | where: "type", "Tutorial" | sort: "title" %}
+
+<h2>Tutorials <span class="count">({{ tutorials | size }})</span></h2>
+
+{% include listings.html listings=tutorials %}
