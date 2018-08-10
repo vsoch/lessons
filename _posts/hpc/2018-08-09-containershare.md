@@ -25,6 +25,11 @@ Today we are going to do the following:
  3. use the [forward tool](https://www.github.com/vsoch/forward) to start an interactive (or regular ssh) session
  4. access the notebook in a browser on your local machine, or shell into the node.
 
+Watch the above in action in the video below, and keep reading to try it out!
+
+<script src="https://asciinema.org/a/195889.js" id="asciicast-195889" async></script>
+
+<hr>
 
 ## Step 1: Find a Container
 
