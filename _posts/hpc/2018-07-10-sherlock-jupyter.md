@@ -7,7 +7,9 @@ categories:
 type: Tutorial
 set: clusters
 set_order: 7
-tags: [resources]
+tags:
+ - tutorial
+ - resources
 ---
 
 Today we are going to walk through using a [tool](https://github.com/drorlab/forward) provided by one of our users to set up port forwarding on Sherlock. What does this mean? It means you...

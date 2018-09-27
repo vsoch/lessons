@@ -7,7 +7,9 @@ categories:
 type: Tutorial
 set: clusters
 set_order: 1
-tags: [resources]
+tags: 
+ - resources
+ - tutorial
 ---
 
 In this tutorial we will write a job submission script for SLURM. If you haven't yet,

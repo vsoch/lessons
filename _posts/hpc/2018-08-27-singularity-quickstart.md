@@ -7,7 +7,10 @@ categories:
 type: Tutorial
 set: clusters
 set_order: 11
-tags: [resources]
+tags:
+ - reproducibility
+ - tutorial
+ - resources
 ---
 
 This is a quick start to using Singularity on the Sherlock cluster. You should have familiarity

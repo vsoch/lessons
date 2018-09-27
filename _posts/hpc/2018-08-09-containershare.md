@@ -7,7 +7,9 @@ categories:
 type: Tutorial
 set: clusters
 set_order: 10
-tags: [resources]
+tags:
+ - tutorial
+ - resources
 ---
 
 Let's set up our story. You are a graduate student, a postdoc, or staff in lab, and you want

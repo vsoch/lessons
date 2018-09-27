@@ -6,7 +6,10 @@ categories:
   - tutorial
 type: Tutorial
 set: clusters
-tags: [resources]
+tags:
+ - machine-learning
+ - tutorial
+ - resources
 ---
 
 Here is a quick getting started for using pytorch on the Sherlock cluster! We have pre-built two containers, Docker containers, then we have pulled onto the cluster as Singularity containers that can help you out:

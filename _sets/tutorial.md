@@ -1,4 +1,4 @@
 ---
 title: Tutorials
-description: Tutorials, tutorials, tutorials!
+description: Learn the things. All the things.
 ---

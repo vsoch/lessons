@@ -7,7 +7,10 @@ categories:
 type: Tutorial
 set: clusters
 set_order: 8
-tags: [resources]
+tags:
+ - tutorial
+ - resources
+ - machine-learning
 ---
 
 This is a followup to our [original post](https://vsoch.github.io/lessons/sherlock-jupyter/) 

@@ -7,7 +7,9 @@ categories:
 type: Tutorial
 set: clusters
 set_order: 9
-tags: [resources]
+tags:
+ - tutorial
+ - resources
 ---
 
 This is a followup to our original posts:
