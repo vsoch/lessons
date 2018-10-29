@@ -12,7 +12,7 @@ tags:
  - resources
 ---
 
-Today we are going to walk through using a [tool](https://github.com/drorlab/forward) provided by one of our users to set up port forwarding on Sherlock. What does this mean? It means you...
+Today we are going to walk through using a [tool](https://github.com/vsoch/forward) provided by one of our users to set up port forwarding on Sherlock. What does this mean? It means you...
 
  - will run a password protected jupyter notebook on a cluster node
  - can access the notebook in a browsr on your local machine
@@ -26,7 +26,7 @@ Likely some of you are doing this on your own with basic bash commands, and this
 
 ### Collaborative Scripts
 
-The repository has a folder of general sbatch scripts that expose ports that can be forwarded. If you add a new script that you find useful and want to share with others, we encourage you to <a href="https://github.com/drorlab/forward" target="_blank">tell us about it</a>! If it's not perfect or finished, don't be afraid to share! We will provide any additional help needed to finish up your script.
+The repository has a folder of general sbatch scripts that expose ports that can be forwarded. If you add a new script that you find useful and want to share with others, we encourage you to <a href="https://github.com/vsoch/forward" target="_blank">tell us about it</a>! If it's not perfect or finished, don't be afraid to share! We will provide any additional help needed to finish up your script.
 
 ### Community Support
 
@@ -41,7 +41,7 @@ There are a set of commands you will need to run just once to configure the tool
 Make sure you put the folder somewhere meaningful. A subfolder of `$HOME` is a suggestion. This will be your working location for future use of the tool, as it holds scripts and a parameter file, `params.sh`
 
 ```bash
-git clone https://github.com/drorlab/forward
+git clone https://github.com/vsoch/forward
 cd forward
 ```
 
@@ -58,7 +58,7 @@ Let's take a look at what we have here!
 ```
 
 ### Step 2: Generate your Parameters
-This is a one time generation script that will create a parameter text file with a port, username, and cluster resource. You can generate it by running the script [setup.sh](https://github.com/drorlab/forward/blob/master/setup.sh):
+This is a one time generation script that will create a parameter text file with a port, username, and cluster resource. You can generate it by running the script [setup.sh](https://github.com/vsoch/forward/blob/master/setup.sh):
 
 ```bash
 $ bash setup.sh 
@@ -199,14 +199,14 @@ We have just set up a password on Sherlock, and are now back on our _local machi
 
 
 ### 3.1. Start a Session
-From the directory where we cloned, we can start a session using the [start.sh](https://github.com/drorlab/forward/blob/master/start.sh) script. This is a general script to start any kind of session, and here we will show how to start a jupyter notebook in a specific directory:
+From the directory where we cloned, we can start a session using the [start.sh](https://github.com/vsoch/forward/blob/master/start.sh) script. This is a general script to start any kind of session, and here we will show how to start a jupyter notebook in a specific directory:
 
 ```bash
 bash start.sh <software> <path>
 bash start.sh jupyter /path/to/dir
 ```
 
-What's going on? It will look in the folder of [sbatch scripts](https://github.com/drorlab/forward/blob/master/sbatches) and find one named correpondingly to the command we issued. This means that there is a file called [jupyter.sbatch](https://github.com/drorlab/forward/blob/master/sbatches/jupyter.sbatch) in that folder. Note that, to
+What's going on? It will look in the folder of [sbatch scripts](https://github.com/vsoch/forward/blob/master/sbatches) and find one named correpondingly to the command we issued. This means that there is a file called [jupyter.sbatch](https://github.com/vsoch/forward/blob/master/sbatches/jupyter.sbatch) in that folder. Note that, to
 make this simple, we also have sbatch scripts for using jupyter with different Python kernels:
 
 
@@ -279,7 +279,7 @@ Killing py3-jupyter slurm job on sherlock
 Killing listeners on sherlock
 ```
 
-There are additional details and debugging tips in the <a href="https://github.com/drorlab/forward" target="_blank">main repository</a>! Happy Jupyter-ing!
+There are additional details and debugging tips in the <a href="https://github.com/vsoch/forward" target="_blank">main repository</a>! Happy Jupyter-ing!
 
 ## Contribute!
 The cool thing about small efforts like these is that they provide very useful tools for you
@@ -303,8 +303,8 @@ module load py-jupyter/1.0.0_py27
 jupyter notebook --no-browser --port=$PORT
 ```
 
-Contributing can also be as simple as suggesting a feature or reporting a bug on the <a href="https://github.com/drorlab/forward/issues" target="_blank">issues board</a>. 
-See the <a href="https://github.com/drorlab/forward" target="_blank">main repository</a> for how to contribute. 
+Contributing can also be as simple as suggesting a feature or reporting a bug on the <a href="https://github.com/vsoch/forward/issues" target="_blank">issues board</a>. 
+See the <a href="https://github.com/vsoch/forward" target="_blank">main repository</a> for how to contribute. 
 
 ### Add Functionality
 
