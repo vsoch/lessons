@@ -13,7 +13,7 @@ github_posts_raw: "https://raw.githubusercontent.com/vsoch/lessons/master/_posts
 
 # Values for the jekyll-seo-tag gem (https://github.com/jekyll/jekyll-seo-tag)
 logo: /assets/img/helpme.png
-description: Quick lessons to learn about reproducible research computing at Stanford
+description: Quick lessons to learn about reproducible research computing
 author:
   name: vsoch
   email:
@@ -88,7 +88,7 @@ social_icons:
 # Social networking, etc
 google_analtics: "UA-85750967-1"
 disqus_shortname: "stanfordrc"
-twitter_username: StanfordCompute
+twitter_username: vsoch
 
 types:
   - Document
