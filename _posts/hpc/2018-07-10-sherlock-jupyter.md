@@ -117,7 +117,7 @@ $ bash hosts/sherlock_ssh.sh
 Sherlock username > tacocat
 Host sherlock
     User tacocat
-    Hostname sh-ln03.stanford.edu
+    Hostname login.sherlock.stanford.edu
     GSSAPIDelegateCredentials yes
     GSSAPIAuthentication yes
     ControlMaster auto
@@ -132,9 +132,7 @@ can do the entire step above programatically:
 bash hosts/sherlock_ssh.sh >> ~/.ssh/config
 ```
 
-Remember that this is a suggested configuration. The login node is generated randomly above, so you could
-change it to be a different node (e.g., `sh-ln03.sherlock.stanford.edu`) or select from all of them (`login.sherlock.stanford.edu`)`. Your computer is ready to go! Let's move onto Sherlock. We will come back here when it's time to
-start a notebook.
+Your computer is ready to go! Let's move onto Sherlock. We will come back here when it's time to start a notebook.
 
 ## 2. On Sherlock
 
